@@ -23,6 +23,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,7 +37,7 @@ import viewmodel.TipViewModel
 fun tela(){
     val tipViewModel: TipViewModel = viewModel()
     val state = tipViewModel.uiState.collectAsState()
-    var amountText by remember { mutableStateOf("") }
+    var amountText by rememberSaveable { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -59,7 +60,8 @@ fun tela(){
             ) {
                 Text("Amount")
                 OutlinedTextField(
-                    modifier = Modifier.padding(15.dp),
+                    modifier = Modifier.padding(15.dp)
+                        .fillMaxWidth(),
                     value = amountText,
                     onValueChange = {
                         if (it.isEmpty() || it.toDoubleOrNull() != null) {
